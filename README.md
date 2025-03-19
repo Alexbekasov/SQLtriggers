@@ -154,4 +154,59 @@ sys.triggers
 WHERE
 type= 'TR';
 
+--------------------------------------------------------------------------
 
+Create database triggerTARgv24;
+
+Use triggerTARgv24;
+
+Create table cities(
+cityID int PRIMARY KEY identity(1,1),
+cityname varchar(15) not null,
+population int);
+
+Create table log(
+id int PRIMARY KEY identity (1,1),
+time DATETIME,
+operation varchar(100),
+data text);
+
+--INSERT TRIGER - tracks data insertion into the cities table
+-- and logs the corresponding entry in the table
+Create TRIGGER cityAddition
+ON cities --table name to track
+FOR INSERT
+Ltd.
+INSERT INTO log(time, action, data)
+SELECT
+GETDATE(),
+'an INSERT command has been executed',
+inserted.cityname
+FROM inserted;
+
+--trigger action control
+INSERT INTO cities(cityname, population)
+VALUES('Kill', 5000);
+SELECT * FROM cities;
+SELECT * FROM log;
+
+
+
+USE [triggerTARgv24]
+GO
+/****** Object: Trigger [dbo].[cityAddition] Script Date: 19.03.2025 09:04:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER TRIGGER [dbo].[cityAdd]
+ON [dbo].[cities] --table name that needs to be monitored
+FOR INSERT
+Ltd.
+INSERT INTO log(user, time, action, data)
+SELECT
+SUSER_NAME(), --USER
+GETDATE(),
+'an INSERT command has been executed',
+CONCAT (inserted.cityname, ', population:', inserted.population)
+FROM inserted;
