@@ -138,4 +138,7 @@ INNER JOIN linnad li
 ON l.linnID=li.linnID
 WHERE NEW.linn.ID=l.linnID
 
-
+INSERT INTO logi (aeg, toiming, andmed)
+VALUES(
+    NOW(),
+    ' linn on kustutatud', OLD.linnanimi)
