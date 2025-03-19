@@ -142,3 +142,16 @@ INSERT INTO logi (aeg, toiming, andmed)
 VALUES(
     NOW(),
     ' linn on kustutatud', OLD.linnanimi)
+
+
+-- Shows all triggers
+
+SELECT
+name,
+is_instead_of_trigger
+FROM
+sys.triggers
+WHERE
+type= 'TR';
+
+
