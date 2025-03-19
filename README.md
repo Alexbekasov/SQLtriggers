@@ -112,3 +112,30 @@ FROM inserted;
 
 --------------------------------------------------------------------------
 
+XAMPP
+
+INSERT INTO logi(kasutaja, aeg, toiming, andmed)
+values(
+USER(), 
+NOW(),
+'on tehtud INSERT käsk',
+CONCAT ('linn: ', new.linnanimi, ', elanike arv:', new.rahvaarv)
+)
+
+
+
+INSERT INTO logi(kasutaja, aeg, toiming, andmed)
+SELECT
+USER(),
+NOW(),
+'on tehtud DELETE käsk',
+CONCAT ('vanad andmed -linn: ', OLD.linnanimi,
+', elanike arv:', OLD.rahvaarv,
+'\n uued andmed -linn: ', NEW.linnanimi,
+', elanike arv:', NEW.rahvaarv)
+FROM linnad l
+INNER JOIN linnad li
+ON l.linnID=li.linnID
+WHERE NEW.linn.ID=l.linnID
+
+
